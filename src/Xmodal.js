@@ -1,18 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-import ReactDOM from "react-dom";
-import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 
 function XModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +31,7 @@ function XModal() {
       return false;
     }
     if (new Date(dob) > new Date()) {
-      alert("Invalid Date of Birth. Date of birth Cannot be in the future.");
+      alert("Invalid Date of Birth. Date of birth cannot be in the future.");
       return false;
     }
     if (!phone || !/^\d{10}$/.test(phone)) {
@@ -68,17 +55,19 @@ function XModal() {
   };
 
   return (
-    <div className="modal">
+    <div>
       <h1>User Details Modal</h1>
       <button onClick={() => setIsModalOpen(true)}>Open Form</button>
 
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal}
-        style={customStyles}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal" onClick={closeModal}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()} // Prevents modal closing on inner click
+          >
             <form onSubmit={handleSubmit}>
+              <h2>Fill Details</h2>
               <div>
-                <h2>Fill Details</h2>
                 <label htmlFor="username">Username:</label>
                 <input
                   type="text"
@@ -114,6 +103,7 @@ function XModal() {
                 <input
                   type="date"
                   id="dob"
+                  required
                   value={formData.dob}
                   onChange={handleChange}
                 />
@@ -123,15 +113,9 @@ function XModal() {
                 Submit
               </button>
             </form>
-            <div
-            className="overlay"
-            onClick={closeModal} // Close the modal when clicking outside
-          ></div>
           </div>
-        </Modal>
+        </div>
       )}
-
-      {isModalOpen && <div className="overlay" onClick={closeModal}></div>}
     </div>
   );
 }

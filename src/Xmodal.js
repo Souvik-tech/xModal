@@ -123,6 +123,10 @@ function XModal() {
                 Submit
               </button>
             </form>
+            <div
+            className="overlay"
+            onClick={closeModal} // Close the modal when clicking outside
+          ></div>
           </div>
         </Modal>
       )}
